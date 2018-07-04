@@ -143,22 +143,26 @@ def workerSystem():
         product_name=request.form.get('product_name')
         take_volume=request.form.get('take_volume')
         product=Product.query.filter(Product.product_name==product_name).first()
-        product.inventory=product.inventory-int(take_volume)
-        worker=g.user
-        ws=WorkerSystem(take_volume=take_volume,worker=worker,product=product)
-        db.session.add(ws)
-        edgeOb=Edge.query.filter(Edge.id!=-1).order_by(Edge.id.desc()).first()
-        if product.inventory < edgeOb.edge:
-            manager=ManagerSystem.query.filter(ManagerSystem.product_id==product.id).order_by(ManagerSystem.id.desc()).first()
-            purchasing_volume=manager.order_volume
-            bs=BuyerSystem(purchasing_volume=purchasing_volume,wether_or_not=0)
-            bs.product=product
-            db.session.add(bs)
-        db.session.commit()
+        if product.inventory-int(take_volume)>=0:
+            product.inventory = product.inventory-int(take_volume)
+            worker = g.user
+            ws = WorkerSystem(take_volume=take_volume, worker=worker, product=product)
+            db.session.add(ws)
+            edgeOb = Edge.query.filter(Edge.id != -1).order_by(Edge.id.desc()).first()
+            if product.inventory < edgeOb.edge:
+                manager = ManagerSystem.query.filter(ManagerSystem.product_id == product.id).order_by(
+                    ManagerSystem.id.desc()).first()
+                if manager.order_volume != 0:
+                    purchasing_volume = manager.order_volume
+                    bs = BuyerSystem(purchasing_volume=purchasing_volume, wether_or_not=0)
+                    bs.product = product
+                    db.session.add(bs)
+            db.session.commit()
         contexts = {
             'products': Product.query.all(),
         }
-        return render_template('worker.html',**contexts)
+        return render_template('worker.html', **contexts)
+
 
 
 @app.route('/logout/')
