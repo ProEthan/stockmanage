@@ -11,7 +11,7 @@ db.init_app(app)
 @app.route('/',methods=['GET','POST'])
 def login():
     if request.method=='GET':
-        return render_template('login.html')
+        return render_template('index.html')
     else:
         telephone=request.form.get('telephone')
         password=request.form.get('password')
