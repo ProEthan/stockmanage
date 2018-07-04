@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}工作人员{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/manager.css') }}">
+{% endblock %}
+
+
+
+{% block main %}
+<div class="main">
+<br>
+<h2 align="center">原材表</h2>
+<br>
+<table border="1px" width="900px" align="center">
+    <tbody>
+    <tr align="center">
+        <td height="30">ID</td>
+        <td>名称</td>
+        <td>库存量</td>
+        <td>提取</td>
+    </tr>
+    {% for product in products %}
+    <tr align="center">
+        <td height="50">{{product.id}}</td>
+        <td>{{product.product_name}}</td>
+        <td>{{product.inventory}}</td>
+        <td>
+            <form action="" method="post">
+                <input type="text" placeholder="0" name="take_volume" class="form-control2">
+                <button class="btn btn-primary">提取</button>
+                <input type="hidden" name="product_name" value="{{ product.product_name }}">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+</div>
+{% endblock %}

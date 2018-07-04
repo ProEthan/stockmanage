@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}采购者{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/manager.css') }}">
+{% endblock %}
+
+
+
+{% block main %}
+<div class="main">
+<br>
+<h2 align="center">采购项</h2>
+<br>
+<table id="tab1" border="1px" width="900px" align="center">
+    <tbody>
+    <tr align="center">
+        <td height="30">ID</td>
+        <td>名称</td>
+        <td>订购量</td>
+    </tr>
+    {% for buyerSystem in buyerSystems %}
+        <tr align="center">
+            <td height="50">{{buyerSystem.product.id}}</td>
+            <td>{{buyerSystem.product.product_name}}</td>
+            <td>{{buyerSystem.purchasing_volume}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+<div align="right">
+    <form action="{{ url_for('buyerSystem') }}" method="post">
+        <button class="btn btn-primary">一键采购</button>
+    </form>
+</div>
+<br>
+<br>
+</div>
+{% endblock %}

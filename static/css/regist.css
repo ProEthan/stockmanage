@@ -1,0 +1,11 @@
+.my-radio{
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.main{
+    width: 530px;
+    margin: 50px auto;
+    overflow: hidden;
+    padding: 10px;
+}

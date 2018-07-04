@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}管理者{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/manager.css') }}">
+    <script>
+        window.onload=function(){
+            var edge=document.getElementById('edge');
+            var change_e=document.getElementById('change-edge');
+            var num=document.getElementById('num');
+
+            change_e.onclick=function(){
+                num.value=edge.value;
+            };
+        }
+    </script>
+{% endblock %}
+
+
+
+{% block main %}
+<div class="main">
+<form action="{{ url_for('makeEdge') }}" method="get">
+    <div class="form-group" id="add-item" >
+        当前临界值:
+        <input id="num" value="{{ edgeOb.edge }}" style="width: 45px;border: 0px" readonly>
+        <button style="height: 25px;">更改</button>
+    </div>
+</form>
+<br>
+<div align="right">
+    <form action="{{ url_for('addItem') }}" method="get">
+        <div class="form-group" id="add-item">
+            <button class="btn btn-primary">添加新零件</button>
+        </div>
+    </form>
+</div>
+
+<table id="tab1" border="1px" width="900px" align="center">
+    <tbody>
+    <tr align="center">
+        <td height="30">ID</td>
+        <td>名称</td>
+        <td>库存量</td>
+        <td>订购量</td>
+        <td>订购</td>
+    </tr>
+    {% for product in products %}
+    <tr align="center">
+        <td height="50">{{product.id}}</td>
+        <td>{{product.product_name}}</td>
+        <td>{{product.inventory}}</td>
+        {% if product.manageItems %}
+            <td>{{product.manageItems[0].order_volume}}</td>
+        {% else %}
+            <td>0</td>
+        {% endif %}
+        <td>
+            <form action="{{ url_for('managerSystem') }}" method="post">
+                <input id="order-volume" type="text" placeholder="0" name="make_order_volume" class="form-control2">
+                <button class="btn btn-primary">提交</button>
+                <input type="hidden" name="product_name" value="{{ product.product_name }}">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+</div>
+{% endblock %}

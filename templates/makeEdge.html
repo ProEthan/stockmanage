@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}设置边界值{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/addItem.css') }}">
+{% endblock %}
+
+{% block main %}
+<div class="main">
+    <h3 class="page-title" >设置边界值</h3>
+    <form action="" method="post">
+        <div class="form-container" id="question">
+            <div class="form-group">
+                <input type="text" placeholder="请输入边界值" name="edge" class="form-control">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" href="">提交</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

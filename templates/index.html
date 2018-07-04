@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}登录{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login.css') }}">
+{% endblock %}
+
+{% block main %}
+<div class="main">
+    <div class="left">
+        <h3 class="left-title">企业库存管理系统</h3>
+    </div>
+    <div class="right">
+        <form action="" method="get">
+            <div class="form-group" id="add-theme">
+                <div class="form-container">
+                    <button href="{{ url_for('login') }}"  class="btn btn-primary btn-block">登录</button>
+                </div>
+                <br>
+                <div class="form-container">
+                    <button href="{{ url_for('regist') }}"  class="btn btn-primary btn-block">注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
